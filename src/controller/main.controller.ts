@@ -60,9 +60,9 @@ export class MainController {
 
     }
 
-    @Get('/paris-peak-pollution-datetime')
+    @Get('/city-peak-pollution-datetime')
     @Header('content-type', 'application/json')
-    public async getParisMaxPollutionDateTime(@Req() request: Request) {
+    public async getCityMaxPollutionDateTime(@Req() request: Request) {
 
         const cityName = request.query.cityName;
 
