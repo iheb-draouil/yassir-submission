@@ -5,8 +5,14 @@ OS: Ubuntu 20.04
 Docker Version: 20.10.18 (client & engine)
 
 ```bash
-# 
+# Start a database instance
 docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<PASSWORD_IN_ENV_FILE> mysql:8.0
+
+# Make the environment varibales available for the node engine
+source .env
+
+# Install dependencies
+npm install
 
 # Ready the database
 npm run database:create
