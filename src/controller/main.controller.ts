@@ -23,8 +23,7 @@ export class MainController {
     @Header('content-type', 'application/json')
     public async getNearestCityAirQuality(@Req() request: Request) {
 
-        const { data } = await this
-        .iqAirService
+        const { data } = await this.iqAirService
         .getNearestCityAQByLongitudeAndLatitude(
             ...this.requestService.getLongitudeAndLatitudePairOrFail(request.query)
         );
@@ -36,10 +35,10 @@ export class MainController {
     @Header('content-type', 'application/json')
     public async registerCityAQ(@Req() request: Request) {
 
-        const [longitude, latitude] = this.requestService.getLongitudeAndLatitudePairOrFail(request.query);
+        const [longitude, latitude] = this.requestService
+        .getLongitudeAndLatitudePairOrFail(request.query);
 
-        const { data: { city, current } } = await this
-        .iqAirService
+        const { data: { city, current } } = await this.iqAirService
         .getNearestCityAQByLongitudeAndLatitude(longitude, latitude);
 
         await this.dbService
@@ -48,16 +47,10 @@ export class MainController {
         return { result: 'done' };
     }
 
-    @Get('/city')
+    @Get('/cities')
     @Header('content-type', 'application/json')
-    public async getCities(@Req() request: Request) {
-
-        return {
-            result: await this
-            .dbService
-            .getCities()
-        };
-
+    public async getCities() {
+        return { result: await this.dbService.getCities() };
     }
 
     @Get('/city-peak-pollution-datetime')

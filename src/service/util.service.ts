@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class UtilService {
 
-    public static NumericalRegex = /[0-9]+/;
+    public static NumericalRegex = /(^[0-9]+$)|(^[0-9]+\.[0-9]+$)/;
 
     public isString(input: any): input is string {
         return typeof(input) == 'string';

@@ -1,10 +1,14 @@
-Usage
+# Developement
 
-OS: Ubuntu 20.04
+OS: Ubuntu 22.04
 
 Docker Version: 20.10.18 (client & engine)
 
 ```bash
+
+# Create a blank migrations file
+NODE_ENV=main NO_ENV_VARS=1 npm run migrations:make:dev <migration-name>
+
 # Start a database instance
 docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<PASSWORD_IN_ENV_FILE> mysql:8.0
 
@@ -21,6 +25,8 @@ npm run migrations:migrate
 # Start the development server
 npm run start
 ```
+
+# Usage:
 
 Base Url: http://localhost:8000
 

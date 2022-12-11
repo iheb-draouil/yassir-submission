@@ -1,30 +1,24 @@
 services:
   
   database:
-    image: mysql:8.0
+    image: mysql:${MYSQL_VERSION}
     restart: on-failure
     ports:
-      - 3307:3306
+      - 3306:3306
+    env_file:
+      - .env.staging
     environment:
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
 
   app:
-    restart: on-failure
     build: .
     ports:
       - 8000:8000
+    env_file:
+      - .env.staging
     depends_on:
       - database
-    environment:
-      - DATABASE_HOST=database
-      - DATABASE_PORT=3306
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - DATABASE_NAME=${DATABASE_NAME}
-      - IQAIR_PROTOCOL=${IQAIR_PROTOCOL}
-      - IQAIR_BASE_URL=${IQAIR_BASE_URL}
-      - IQAIR_NEAREST_CITY_AQ_EP_PATH=${IQAIR_NEAREST_CITY_AQ_EP_PATH}
-      - IQAIR_API_KEY=${IQAIR_API_KEY}
+    restart: on-failure
 
   # cron:
   #   image: mysql:8.0

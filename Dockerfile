@@ -1,12 +1,16 @@
-FROM node:18
+FROM node:18.12
 
-COPY dist /var/www/
-COPY node_modules /var/www/node_modules/
-COPY package.json /var/www/
+ARG WORKDIR=/var/www
 
-WORKDIR /var/www/
+RUN mkdir $WORKDIR
 
-RUN npm run database:create:prod
-RUN npm run database:migrate:prod
+COPY build $WORKDIR
 
-ENTRYPOINT ["/usr/local/bin/node", "/va/www/src/main.js"]
+# RUN chmod -R 666 $WORKDIR
+# RUN chmod 747 $WORKDIR
+
+WORKDIR $WORKDIR
+
+USER node
+
+# ENTRYPOINT ["/bin/bash", "$WORKDIR/docker-entrypoint.sh"]

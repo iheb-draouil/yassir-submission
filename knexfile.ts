@@ -1,6 +1,10 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+if (process.env.DATABASE_PORT === undefined
+    || process.env.DATABASE_NAME === undefined
+    || process.env.DATABASE_HOST === undefined
+    || process.env.DATABASE_USER === undefined
+    || process.env.DATABASE_PASSWORD === undefined) {
+    throw new Error('Missing environment variables for database intialization');
+}
 
 export default { main: {
     client: 'mysql2',
@@ -11,7 +15,4 @@ export default { main: {
         port: parseInt(process.env.DATABASE_PORT as string, 10),
         database: process.env.DATABASE_NAME,
     },
-    migrations: {
-        tableName: 'knex_migrations',
-    }
 } };
